@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->date('releaseDate');
-            $table->integer('genreID')->unsigned();
+            $table->bigInteger('genreID')->unsigned();
             $table->timestamps();
 
-            $table->foreign('genreID')->references('id')->on('genres');
+            $table->foreign('genreID')->references('id')->on('genres')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
