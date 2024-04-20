@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(UserTableSeeder::class);
+        $this->call(GenreTableSeeder::class);
+        $this->call(AnimeTableSeeder::class);
+        // $this->call(PostTableSeeder::class); //don't need to call this method because the users are being seeded with 3 posts already
+        $this->call(CommentTableSeeder::class);
+        $this->call(RatingTableSeeder::class);
     }
 }
