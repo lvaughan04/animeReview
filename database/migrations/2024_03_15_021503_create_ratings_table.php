@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('userID')->unsigned();
-            $table->bigInteger('animeID')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('anime_id')->unsigned();
             $table->string('reviewContent');
             $table->integer('score');
             $table->timestamps();
 
-            $table->foreign('userID')->references('id')->on('users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('animeID')->references('id')->on('animes')
+            $table->foreign('anime_id')->references('id')->on('animes')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('userID')->unsigned();
-            $table->bigInteger('animeID')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('title'); //gonna use this in the url later
             $table->string('content');
             $table->timestamps();
 
-            $table->foreign('userID')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('animeID')->references('id')->on('animes')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
