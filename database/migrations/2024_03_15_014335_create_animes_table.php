@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->bigInteger('genre_id')->unsigned();
+            $table->text('description');
+            //$table->bigInteger('genre_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('genre_id')->references('id')->on('genres')
-                ->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreign('genre_id')->references('id')->on('genres')
+                //->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

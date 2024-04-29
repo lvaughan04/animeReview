@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anime;
+use App\Models\Genre;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AnimeController extends Controller
 {
@@ -11,7 +15,9 @@ class AnimeController extends Controller
      */
     public function index()
     {
-        //
+        $animes = Anime::all();
+        //dd($animes);
+        return Inertia::render('Anime/Index', ['animes' => $animes]);
     }
 
     /**
@@ -19,7 +25,8 @@ class AnimeController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return Inertia::render('Anime/Create', ['genres' => $genres]);
     }
 
     /**
@@ -27,7 +34,23 @@ class AnimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validatedData = $request->validate([
+            'title' => 'required|max:60', //255 characters
+            'description' => 'required|string',
+            // 'genres' => 'required|array',
+            // 'genres.*' => 'exists:genres,id' 
+        ]);
+
+        //come back to work on genres and how they relate
+        $newAnime = new Anime;
+        $newAnime->description = $validatedData['description'];
+        $newAnime->title = $validatedData['title'];
+        $newAnime->save();
+
+        //$newAnime->genres()->attach($request->genres);
+
+        return Inertia::location(route('animes.index'));    
     }
 
     /**
@@ -35,7 +58,9 @@ class AnimeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $anime = Anime::findorFail($id);
+        //dd($anime);
+        return Inertia::render('Anime/Show', ['anime' => $anime]);
     }
 
     /**

@@ -17,7 +17,7 @@ class AnimeTableSeeder extends Seeder
         $animeVal = new Anime();
         $animeVal->title = 'Naruto';
         $animeVal->description = 'This show is about a boy who has no parents and is mockery to the village';
-        $animeVal->genre_id = 1;
+        //$animeVal->genre_id = 1;
         $animeVal->save();
 
         Anime::factory()->count(50)->create();

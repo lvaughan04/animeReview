@@ -19,7 +19,7 @@ class AnimeFactory extends Factory
         return [
             'title' => fake()->word(),
             'description' => fake()->paragraph(1, true),
-            'genre_id'=>fake()->numberBetween(1, 5) //5 because number of genres right now
+            //'genre_id'=>fake()->numberBetween(1, 5) //5 because number of genres right now
         ];
     }
 }

@@ -14,10 +14,26 @@ class GenreTableSeeder extends Seeder
     public function run(): void
     {
         $hardCode = new Genre();
-        $hardCode->name = 'shonen';
+        $hardCode->name = 'Shonen';
         $hardCode->save();
 
-        Genre::factory()->count(50)->create();
+        $hardCode = new Genre();
+        $hardCode->name = 'Isekai';
+        $hardCode->save();
+
+        $hardCode = new Genre();
+        $hardCode->name = 'Slice of Life';
+        $hardCode->save();
+
+        $hardCode = new Genre();
+        $hardCode->name = 'Fantasy';
+        $hardCode->save();
+
+        $hardCode = new Genre();
+        $hardCode->name = 'Romance';
+        $hardCode->save();
+
+        //Genre::factory()->count(50)->create();
 
     }
 }
