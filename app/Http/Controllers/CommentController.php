@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+
+use Inertia\Inertia;
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        // $post = Post::with('comments')->findOrFail($id);
+        // return Inertia::render('Posts/Show', 
+        //     ['post' => $post, 'comments' => $post->comments ]);
     }
 
     /**
@@ -19,7 +26,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Posts/Show');
     }
 
     /**
@@ -27,7 +34,22 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $validatedData = $request->validate([
+            'content' => 'required|max:255', //255 characters
+            'postID' => 'required',
+        ]);
+
+        $newComment = new Comment;
+        $newComment->content = $validatedData['content'];
+        $newComment->post_id = $validatedData['postID'];
+        $newComment->user_id = Auth::id();
+
+
+        $newComment->save();
+
+        session()->flash('message', 'Post successful');
+        return redirect()->route('posts.show', $newComment->post_id);
     }
 
     /**

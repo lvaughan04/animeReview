@@ -52,9 +52,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::with('user')->findorFail($id);
-        //dd($anime);
-        return Inertia::render('Posts/Show', ['post' => $post]);
+        $post = Post::with(['comments.user','user'])->findorFail($id);
+        return Inertia::render('Posts/Show', ['post' => $post, 'comments'=>$post->comments]);
     }
 
     /**
