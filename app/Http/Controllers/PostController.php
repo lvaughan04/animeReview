@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class PostController extends Controller
 {
@@ -11,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Posts/Index', ['posts' => $posts]);
     }
 
     /**
@@ -19,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Posts/Create');
     }
 
     /**
@@ -27,7 +32,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:60',
+            'content' => 'required| max:1000'
+        ]);
+
+        $newPost = new Post;
+        $newPost->title = $validatedData['title'];
+        $newPost->content = $validatedData['content'];
+        $newPost->user_id = Auth::id();
+        $newPost->save();
+
+        session()->flash('message', 'Post successful');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -35,7 +52,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::with('user')->findorFail($id);
+        //dd($anime);
+        return Inertia::render('Posts/Show', ['post' => $post]);
     }
 
     /**
