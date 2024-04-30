@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.post-container {
+/* .post-container {
     position: relative;
     padding: 20px;
     border: 1px solid #ccc;
@@ -24,4 +24,4 @@
 
 .post-container:hover .read-more {
     display: block;  
-}
+} */

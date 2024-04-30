@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(15);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(1000);
         return Inertia::render('Posts/Index', ['posts' => $posts]);
     }
 
@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:60',
-            'content' => 'required| max:1000'
+            'content' => 'required| max:10000'
         ]);
 
         $newPost = new Post;

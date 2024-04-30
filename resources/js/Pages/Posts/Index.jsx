@@ -9,13 +9,13 @@ export default function Index({posts}) {
      console.log(posts);
     return (
         <NavBarLayout>
-            <h1><b>Posts</b></h1>
+            <h1 className=" text-center font-bold text-2xl">Posts</h1>
 
-            <Link href="/posts/create" className="btn btn-primary">Create new Post</Link>
-            <ul>
+            <Link href="/posts/create" className="">Create new Post</Link>
+            <ul className=" container  mx-auto p-4 flex flex-wrap">
                 {/* if there is data in the post, then display it */}
                 {posts.data && posts.data.map(post => (
-                    <li key={post.id}>
+                    <li key={post.id} className="w-full sm:w-1/2 md:w-1/4 p-2">
                         <Post key={post.id} post={post}/>
                     </li>
                 ))}
