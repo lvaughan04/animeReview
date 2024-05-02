@@ -7,6 +7,7 @@ use App\Models\Genre;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use NumberFormatter;
 
 class AnimeController extends Controller
 {
@@ -57,9 +58,12 @@ class AnimeController extends Controller
      */
     public function show(string $id)
     {
-        $anime = Anime::findorFail($id);
-        //dd($anime);
-        return Inertia::render('Anime/Show', ['anime' => $anime]);
+        $anime = Anime::with(['ratings', 'ratings.user'])->findOrFail($id);
+
+    // Calculate average rating
+        $averageRatingInput = $anime->ratings->avg('score');
+        $averageRating = number_format($averageRatingInput, 2);
+        return Inertia::render('Anime/Show', ['anime' => $anime, 'averageRating'=>$averageRating]);
     }
 
     /**

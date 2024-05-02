@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use App\Models\User;
+Use Inertia\Inertia;
+
 
 class UserController extends Controller
 {
@@ -27,7 +30,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -35,7 +38,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::with(['posts.comments'])->findOrFail($id);
+        return Inertia::render('User/Show', ['user' => $user]);
     }
 
     /**

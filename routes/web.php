@@ -54,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/animes/{anime}/ratings/create', [RatingController::class,'create'])->name('ratings.create');
     Route::post('/animes/{anime}/ratings', [RatingController::class,'store'])->name('ratings.store');
     Route::get('/animes/{anime}/ratings/{id}', [RatingController::class,'show'])->name('ratings.show');
+
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+
+    
 });
 
 require __DIR__.'/auth.php';
