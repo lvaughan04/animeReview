@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class,'create'])->name('posts.create');
     Route::post('/posts', [PostController::class,'store'])->name('posts.store');
     Route::get('/posts/{id}', [PostController::class,'show'])->name('posts.show');
+    Route::post('/posts/{id}/update', [PostController::class,'update'])->name('posts.update');
+    Route::get('/posts/{id}/edit',  [PostController::class,'edit'])->name('posts.edit');
+    
 
     Route::get('posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
     Route::get('/posts/{post}/comments/create', [CommentController::class,'create'])->name('comments.create');

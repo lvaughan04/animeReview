@@ -15,8 +15,7 @@ class AnimeController extends Controller
      */
     public function index()
     {
-        $animes = Anime::all();
-        //dd($animes);
+        $animes = Anime::orderBy('title', 'asc')->paginate(20);
         return Inertia::render('Anime/Index', ['animes' => $animes]);
     }
 

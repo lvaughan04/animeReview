@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use Inertia\Inertia;
 
@@ -65,7 +66,12 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        if(! Gate::allows('update', $comment)){
+            return redirect()->route('posts.show', $comment->post)->with('failure', 'Not Authorized to Edit');
+        }
+        return Inertia::render('Comments/Edit', ['comment' => $comment]);
     }
 
     /**

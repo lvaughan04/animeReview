@@ -21,18 +21,16 @@ export default function Index({posts}) {
                 ))}
             </ul>
             <div>
-                <button
-                    onClick={() => posts.prev_url && Inertia.visit(posts.prev_url)}
-                    // 
-                    >
-                    Previous Page
-                </button>
-                <button
-                    onClick={() => posts.next_url && Inertia.visit(posts.next_url)}
-                    // disabled={!posts.next_url}
-                    >
-                    Next Page
-                </button>
+                {posts.prev_page_url && (
+                    <button onClick={() => router.visit(posts.prev_page_url)}>
+                        Previous Page
+                    </button>
+                )}
+                {posts.next_page_url && (
+                    <button onClick={() => router.visit(posts.next_page_url)}>
+                        Next Page
+                    </button>
+                )}
             </div>
         </NavBarLayout>
     );

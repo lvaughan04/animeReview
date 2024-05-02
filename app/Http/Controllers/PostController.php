@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(1000);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(24);
         return Inertia::render('Posts/Index', ['posts' => $posts]);
     }
 
@@ -53,7 +55,12 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::with(['comments.user','user'])->findorFail($id);
-        return Inertia::render('Posts/Show', ['post' => $post, 'comments'=>$post->comments]);
+        $user = Auth::user();
+        
+        return Inertia::render('Posts/Show', 
+            ['post' => $post, 
+            'comments'=>$post->comments, 
+            'isAuthor' => $user ? $user->id === $post->user_id : false]);
     }
 
     /**
@@ -61,7 +68,12 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        if(! Gate::allows('update', $post)){
+            return redirect()->route('posts.index', $post)->with('failure', 'Not Authorized to Edit');
+        }
+        return Inertia::render('Posts/Edit', ['post' => $post]);
     }
 
     /**
@@ -69,7 +81,18 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        // Authorization check
+        if (Gate::denies('update', $post)) {
+            return redirect()->route('posts.index')->with('failure', 'Not Authorized to Edit');
+        };
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('posts.show', $post)->with('success', 'Post updated successfully!');
     }
 
     /**

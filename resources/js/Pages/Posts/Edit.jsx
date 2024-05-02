@@ -1,18 +1,21 @@
-import React, {useState} from "react";
-import { router } from '@inertiajs/react'
+import React from "react";
+import { router } from "@inertiajs/react";
+import { useState } from "react";
 
-function CreatePostForm(){
+
+
+export default function Edit({ post }) {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    
-    const handleSubmit = (event) => {
+
+    function handleEdit(event) {
         event.preventDefault();
-        router.post('/posts', { title, content });
-    };
+        router.post(`/posts/${post.id}/update`, { title, content });
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleEdit}>
             <div>
                 <label htmlFor="title">Title</label>
                 <input
@@ -36,5 +39,3 @@ function CreatePostForm(){
         </form>
     );
 }
-
-export default CreatePostForm;
