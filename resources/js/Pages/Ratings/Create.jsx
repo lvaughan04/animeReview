@@ -10,8 +10,7 @@ function CreateRatingForm({anime}){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(anime.id)
-        router.post('/animes/{anime}/ratings', { reviewContent, score, id});
+        router.post('/animes/{anime}/ratings', { reviewContent, score, anime});
     };
 
     return (
@@ -20,11 +19,11 @@ function CreateRatingForm({anime}){
                 <label htmlFor="score">Score</label>
                 <input
                     id="score"
-                    type="number"  // Set the type to number to restrict inputs
+                    type="number"  
                     value={score}
                     onChange={e => setScore(e.target.value)}
-                    min="1"        // Minimum value
-                    max="10"       // Maximum value
+                    min="1"    
+                    max="10"       
                     required
                 />
             </div>

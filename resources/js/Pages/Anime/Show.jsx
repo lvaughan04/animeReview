@@ -14,7 +14,7 @@ export default function Show({anime, averageRating}) {
                 <h1 className="font-bold">{anime.title}</h1>
                 <p>Average Rating: {averageRating}</p>
                 <p>Description: {anime.description}</p>
-                <p> <Link href={`/animes/${anime.id}/ratings/create`} data={{anime : anime.id}}>Write a new Review:</Link></p>
+                <p> <Link href={`/animes/${anime.id}/ratings/create`}>Write a new Review:</Link></p>
             </div>
             {/**Logic for showing Ratings */}
             <div>

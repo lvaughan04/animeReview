@@ -32,7 +32,7 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-
+        //request);
         $validatedData = $request->validate([
             'reviewContent' => 'required|max:500', 
             'score' => 'required|integer|min:1|max:10',
@@ -43,10 +43,10 @@ class RatingController extends Controller
         $rating->score = $validatedData['score'];
         $rating->reviewContent = $validatedData['reviewContent'];
         $rating->user_id = auth()->id(); // Assuming you want to save which user submitted the rating
-        $rating->anime_id = $request->id; // Ensure you have this field in your form if it's needed
+        $rating->anime_id = $request->anime; // Ensure you have this field in your form if it's needed
         $rating->save();
 
-        return redirect()->route('animes.show', ['id' => $request->id])
+        return redirect()->route('animes.show', ['id' => $request->anime])
                      ->with('success', 'Rating submitted successfully!');
     }
 
