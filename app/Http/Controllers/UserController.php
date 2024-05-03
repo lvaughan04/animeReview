@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::with(['posts.comments'])->findOrFail($id);
+        $user = User::with(['posts', 'comments'])->findOrFail($id);
         return Inertia::render('User/Show', ['user' => $user]);
     }
 

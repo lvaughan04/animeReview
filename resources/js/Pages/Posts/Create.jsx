@@ -1,38 +1,45 @@
 import React, {useState} from "react";
 import { router } from '@inertiajs/react'
 
-function CreatePostForm(){
-
+function CreatePostForm() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         router.post('/posts', { title, content });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="title">Title</label>
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+                <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
+                    Title
+                </label>
                 <input
                     id="title"
                     type="text"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     required
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
-            <div>
-                <label htmlFor="content">Content</label>
+            <div className="mb-6">
+                <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">
+                    Content
+                </label>
                 <textarea
                     id="content"
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     required
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
-            <button type="submit">Create Post</button>
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Create Post
+            </button>
         </form>
     );
 }
