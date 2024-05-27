@@ -12,7 +12,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Profile</h2>
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Settings</h2>
                     <div className="space-y-6">
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                             <UpdateProfileInformationForm
